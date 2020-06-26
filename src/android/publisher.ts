@@ -111,16 +111,18 @@ export class TNSOTPublisher extends View {
                 }
             }
         }));
-        session.events.on('sessionDidConnect', (result: any) => {
-            try {
-                let stream: any = result.object;
-                session.session.publish(this._publisher);
-            } catch (error) {
-                console.log(error);
-            }
-        });
 
     }
+
+    public startStream(session){
+      try {
+        session.session.publish(this._publisher);
+      } catch (error) {
+          console.log(error);
+      }
+    }
+  
+
 
     public static getCameraResolution(cameraResolution) {
         if (cameraResolution) {

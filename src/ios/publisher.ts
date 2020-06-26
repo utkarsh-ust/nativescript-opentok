@@ -1,8 +1,7 @@
 import { Observable, fromObject } from 'tns-core-modules/data/observable';
-import { topmost } from 'tns-core-modules/ui/frame';
+var utils = require("tns-core-modules/utils/utils");
 import { View, layout } from 'tns-core-modules/ui/core/view';
 import { TNSOTSession } from './session';
-import * as utils from 'tns-core-modules/utils/utils';
 declare var OTPublisher: any,
     interop: any,
     OTPublisherKitDelegate: any,
@@ -15,6 +14,7 @@ export class TNSOTPublisher extends View {
     private _ios: any = {};
     nativeView: UIView;
     private _publisherKitDelegate: any;
+    private _stream: any = null
 
     public createNativeView() {
         return UIView.new();
@@ -43,15 +43,21 @@ export class TNSOTPublisher extends View {
         this._ios.view.frame = this.nativeView.bounds;
         this.nativeView.addSubview(this._ios.view);
         session.events.on('sessionDidConnect', (result) => {
-            this._ios.publishAudio = true;
-            let stream: any = result.object;
-            this.setIdleTimer(true);
-            try {
-                stream.session.publish(this._ios);
-            } catch (error) {
-                console.log(error);
-            }
+          this._stream = result.object;
         });
+    }
+
+
+    startStream(session){
+      if( this._stream != null ){
+        this._ios.publishAudio = true;
+        this.setIdleTimer(true);
+        try {
+          this._stream.session.publish(this._ios);
+        } catch (error) {
+            console.log(error);
+        }
+      }
     }
 
     unpublish(session: TNSOTSession): void {

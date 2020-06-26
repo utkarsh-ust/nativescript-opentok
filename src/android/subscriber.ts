@@ -1,18 +1,19 @@
-import { Observable, fromObject } from "data/observable";
 import { ContentView } from 'tns-core-modules/ui/content-view';
+var utils = require("tns-core-modules/utils/utils");
 import { TNSOTSession } from "./session";
 import { RENDERSTYLE } from "../common";
 import {
     Property,
     View,
     CssProperty,
-    Style
+    Style,
+    Observable
 } from "tns-core-modules/ui/core/view";
+import { fromObject } from 'tns-core-modules/data/observable/observable';
 declare var com: any, android: any;
 const StreamListener = com.opentok.android.SubscriberKit.StreamListener;
 const SubscriberListener = com.opentok.android.SubscriberKit.SubscriberListener;
 const BaseVideoRenderer = com.opentok.android.BaseVideoRenderer;
-import * as utils from "utils/utils";
 
 const renderStyle = new CssProperty<Style, string>({
     name: 'renderStyle',

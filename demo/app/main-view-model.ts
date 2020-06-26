@@ -1,17 +1,19 @@
 import * as frame from 'ui/frame';
-import {Observable, EventData} from 'data/observable';
+import { Observable, fromObject } from "tns-core-modules/data/observable";
 import {isAndroid, isIOS} from 'platform';
 import * as utils from "utils/utils";
 import {Page} from 'ui/page';
 import * as dialogs from "ui/dialogs";
 import {TNSOTSession, TNSOTPublisher, TNSOTSubscriber} from 'nativescript-opentok';
 const M = 23;
+var android;
 export class Demo extends Observable {
 
-    public _apiKey:string = '45829912';
-    private _sessionId: string = '1_MX40NTgyOTkxMn5-MTQ5NTE0Mzk3NzI2OX5vdzhEdGtBSm40MW5KWU0rY3RFU3FJNUl-fg';
-    private _publisherToken: string = 'T1==cGFydG5lcl9pZD00NTgyOTkxMiZzaWc9ZDMxMjcxMjE2MTcwZDRkMDY3ZDMyYzg4YmJkODZlYWQ0M2Q0MmQyMTpzZXNzaW9uX2lkPTFfTVg0ME5UZ3lPVGt4TW41LU1UUTVOVEUwTXprM056STJPWDV2ZHpoRWRHdEJTbTQwTVc1S1dVMHJZM1JGVTNGSk5VbC1mZyZjcmVhdGVfdGltZT0xNDk1MTQ0MDAzJm5vbmNlPTAuMjk1ODExOTA1MTIwMDI0MyZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNDk3NzM2MDAy';
-    private _subscriberToken: string = 'T1==cGFydG5lcl9pZD00NTgyOTkxMiZzaWc9YTVhNzI5MWZkZWUzZjhhMGRhOWZlMGY2YjYyNzlkYjQ0MWYxOTYwODpzZXNzaW9uX2lkPTFfTVg0ME5UZ3lPVGt4TW41LU1UUTVOVEUwTXprM056STJPWDV2ZHpoRWRHdEJTbTQwTVc1S1dVMHJZM1JGVTNGSk5VbC1mZyZjcmVhdGVfdGltZT0xNDk1MTQ0MDI0Jm5vbmNlPTAuNjk3NTY4MTUzNjA3MTM0MSZyb2xlPXN1YnNjcmliZXImZXhwaXJlX3RpbWU9MTQ5NzczNjAyMw==';
+    public _apiKey:string = '46711472';
+    private _sessionId: string = '2_MX40NjcxMTQ3Mn5-MTU5MjE0MDI0MDIyNX5IWHZMd2N4anZ5dzdSb3VmTEREUWsxa1B-fg';
+    private _subscriberToken: string =  "T1==cGFydG5lcl9pZD00NjcxMTQ3MiZzaWc9ZDJkMTc5OTI2ZTJhN2YzOTFlNDQzMDE1MTBlMTg2NDI3OTVhNzg3NjpzZXNzaW9uX2lkPTJfTVg0ME5qY3hNVFEzTW41LU1UVTVNakUwTURJME1ESXlOWDVJV0haTWQyTjRhblo1ZHpkU2IzVm1URVJFVVdzeGExQi1mZyZjcmVhdGVfdGltZT0xNTkyMTQwMjU5Jm5vbmNlPTAuNDMxNzYzNzE4NDM2OTc4NyZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNTkyMTQzODU4JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9"
+    //private _publisherToken: string = "T1==cGFydG5lcl9pZD00NjcxMTQ3MiZzaWc9NjRiNTVjNzIwODEzODQ4ZmNiYzNhZTliMmJmNzNkYjljM2IwYmZmZjpzZXNzaW9uX2lkPTJfTVg0ME5qY3hNVFEzTW41LU1UVTVNakUwTURJME1ESXlOWDVJV0haTWQyTjRhblo1ZHpkU2IzVm1URVJFVVdzeGExQi1mZyZjcmVhdGVfdGltZT0xNTkyMTY2NTc1Jm5vbmNlPTAuMzAzMTQ1OTA3NDQwMDA3MzYmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTU5NDc1ODU3NCZpbml0aWFsX2xheW91dF9jbGFzc19saXN0PQ=="
+    private _publisherToken: string =  "T1==cGFydG5lcl9pZD00NjcxMTQ3MiZzaWc9YzZmNzkzMjAwYTU1NzU4YTJjY2Q3Y2Y2ZDQ2ODBmZTcxNjI1NTc1MTpzZXNzaW9uX2lkPTJfTVg0ME5qY3hNVFEzTW41LU1UVTVNakUwTURJME1ESXlOWDVJV0haTWQyTjRhblo1ZHpkU2IzVm1URVJFVVdzeGExQi1mZyZjcmVhdGVfdGltZT0xNTkyMTY2NTEzJm5vbmNlPTAuMTM4NTA4NDA1OTkwNjc5MTUmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTU5NDc1ODUxMiZpbml0aWFsX2xheW91dF9jbGFzc19saXN0PQ=="  
     private publisher: TNSOTPublisher;
     private subscriber: TNSOTSubscriber;
 

@@ -41,7 +41,7 @@ export class TNSOTSubscriber extends View {
 
         if (session instanceof TNSOTSession) {
             session._ios.subscribeError(this._ios, errorRef);
-        } else if (session instanceof OTSession) {
+        } else  {
             session.subscribeError(this._ios, errorRef);
         }
         if (errorRef.value) {

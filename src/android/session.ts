@@ -1,6 +1,6 @@
 import { TNSOTSessionI } from '../common';
 import { TNSOTPublisher } from './publisher';
-import * as app from 'application';
+
 import { Observable, fromObject } from 'tns-core-modules/data/observable';
 import * as utils from "tns-core-modules/utils/utils";
 declare var com: any, android: any;
@@ -20,7 +20,7 @@ const ArchiveListener = com.opentok.android.Session.ArchiveListener;
 const MARSHMALLOW = 23;
 const currentapiVersion = android.os.Build.VERSION.SDK_INT;
 import { TNSOTSubscriber } from "./subscriber";
-import permissions = require('nativescript-permissions');
+var permissions = require('nativescript-permissions');
 
 export class TNSOTSession {
     private apiKey: string;

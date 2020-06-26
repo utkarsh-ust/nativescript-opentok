@@ -1,0 +1,19 @@
+android {
+    
+     defaultConfig {
+            ndk {
+                abiFilters "armeabi", "armeabi-v7a", "x86", "arm64-v8a"
+            }
+        }
+}
+    repositories {
+        maven {
+            url  "http://tokbox.bintray.com/maven"
+        }
+    }
+
+
+dependencies {
+    compile 'com.opentok.android:opentok-android-sdk:2.17.+'
+}
+

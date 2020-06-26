@@ -11,3 +11,6 @@ demo/lib/ios
 *.d.ts
 !opentok.d.ts
 .vscode
+publish/package
+publish/src
+demo/.migration_backup
