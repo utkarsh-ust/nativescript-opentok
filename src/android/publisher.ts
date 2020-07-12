@@ -51,6 +51,7 @@ export class TNSOTPublisher extends View {
         let pub = this._publisher.getView();
         this.nativeView.addView(pub);
         this.renderStyle = this._renderStyle;
+        this.updateScale()
         this._publisher.setPublisherListener(new PublisherListener({
             owner: that.get(),
             onError(publisher: any, error: any) {
@@ -154,19 +155,20 @@ export class TNSOTPublisher extends View {
         return com.opentok.android.Publisher.CameraCaptureFrameRate.FPS_30;
     }
 
+    updateScale(){
+      switch (this._renderStyle) {
+          case 'fit':
+              this._publisher.getRenderer().setStyle(com.opentok.android.BaseVideoRenderer.STYLE_VIDEO_SCALE, com.opentok.android.BaseVideoRenderer.STYLE_VIDEO_FIT);
+              break;
+          default:
+              this._publisher.getRenderer().setStyle(com.opentok.android.BaseVideoRenderer.STYLE_VIDEO_SCALE, com.opentok.android.BaseVideoRenderer.STYLE_VIDEO_FILL);
+              break;
+      }
+    }
+
     [renderStyle.setNative](value: any) {
         this._renderStyle = value;
-        switch (value) {
-            case 'fill':
-                this._publisher.getRenderer().setStyle(com.opentok.android.BaseVideoRenderer.STYLE_VIDEO_SCALE, com.opentok.android.BaseVideoRenderer.STYLE_VIDEO_FILL);
-                break;
-            case 'scale':
-                this._publisher.getRenderer().setStyle(com.opentok.android.BaseVideoRenderer.STYLE_VIDEO_SCALE, com.opentok.android.BaseVideoRenderer.STYLE_VIDEO_SCALE);
-                break;
-            default:
-                this._publisher.getRenderer().setStyle(com.opentok.android.BaseVideoRenderer.STYLE_VIDEO_SCALE, com.opentok.android.BaseVideoRenderer.STYLE_VIDEO_FIT);
-                break;
-        }
+        this.updateScale()
     }
 
     get publisher() {

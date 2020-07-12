@@ -22,6 +22,8 @@ const currentapiVersion = android.os.Build.VERSION.SDK_INT;
 import { TNSOTSubscriber } from "./subscriber";
 var permissions = require('nativescript-permissions');
 
+export var ActiveSession: TNSOTSession;
+
 export class TNSOTSession {
     private apiKey: string;
     private config: any;
@@ -33,6 +35,7 @@ export class TNSOTSession {
 
     public static initWithApiKeySessionId(apiKey: string, sessionId: string) {
         let tnsSession = new TNSOTSession();
+        ActiveSession = tnsSession
         tnsSession._sessionEvents = new Observable();
         tnsSession.apiKey = apiKey;
         tnsSession.session = new Session(utils.ad.getApplicationContext(), apiKey, sessionId);
@@ -74,7 +77,9 @@ export class TNSOTSession {
                         eventName: 'streamDropped',
                         object: fromObject({
                             session: session,
-                            stream: stream
+                            stream: stream,
+                            streamName: stream.getName(),
+                            streamId: stream.getStreamId(),
                         })
                     })
                 }
@@ -85,7 +90,9 @@ export class TNSOTSession {
                         eventName: 'streamReceived',
                         object: fromObject({
                             session: session,
-                            stream: stream
+                            stream: stream,
+                            streamName: stream.getName(),
+                            streamId: stream.getStreamId(),
                         })
                     });
                 }

@@ -8,9 +8,11 @@
   },
   "scripts": {
     "build.install": "npm i && cd ../src && npm i",
-    "build": "npm run build.install && npm run build.clean && npm run build.prep && npm run build.compile && npm run build.package ",
+    "build": "npm run build.install && npm run build.clean && npm run build.prep && npm run build.compile && npm run build.postcompile_android && npm run build.postcompile_ios && npm run build.package ",
     "build.prep": "ncp ../src ./src && mkdir package",
     "build.compile": "cd ./src && tsc",
+    "build.postcompile_android": "rimraf ./src/opentok.android.ts && rimraf ./src/android/session.ts && rimraf ./src/android/subscriber.ts && rimraf ./src/android/publisher.ts",
+    "build.postcompile_ios": "rimraf ./src/opentok.ios.ts && rimraf ./src/ios/session.ts && rimraf ./src/ios/subscriber.ts && rimraf ./src/ios/publisher.ts",
     "build.package": "cd ./package && npm pack ../src",
     "build.post": "rimraf ./src",
     "build.clean": "rimraf ./src && rimraf ./package"

@@ -136,7 +136,9 @@ export class TNSOTSession extends NSObject {
                 eventName: 'streamCreated',
                 object: fromObject({
                     session: session,
-                    stream: stream
+                    stream: stream,
+                    streamName: stream.name,
+                    streamId: stream.streamId
                 })
             });
         }
@@ -151,7 +153,9 @@ export class TNSOTSession extends NSObject {
                 eventName: 'streamDestroyed',
                 object: fromObject({
                     session: session,
-                    stream: stream
+                    stream: stream,
+                    streamName: stream.name,
+                    streamId: stream.streamId
                 })
             });
         }
