@@ -36,6 +36,9 @@ export class TNSOTSubscriber extends View {
     subscribe(session: any, stream: any) {
         this._ios = new OTSubscriber(stream, this._subscriberKitDelegate);
         this._ios.view.frame = this.nativeView.bounds;
+        this._ios.view.autoresizingMask =  (16 | 2) //(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+        this._ios.view.autoresizesSubviews = true;
+
         this.nativeView.addSubview(this._ios.view);
         let errorRef = new interop.Reference();
 

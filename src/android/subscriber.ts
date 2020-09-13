@@ -110,6 +110,7 @@ export class TNSOTSubscriber extends View {
         }));
         
         let sub = this._subscriber.getView();
+        this.nativeView.removeAllViews(); 
         this.nativeView.addView(sub);
 
         if (session instanceof TNSOTSession) {
