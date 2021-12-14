@@ -7,9 +7,7 @@ android {
         }
 }
     repositories {
-        maven {
-            url  "http://tokbox.bintray.com/maven"
-        }
+        mavenCentral()
     }
 
 
