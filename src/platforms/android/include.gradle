@@ -12,6 +12,6 @@ android {
 
 
 dependencies {
-    compile 'com.opentok.android:opentok-android-sdk:2.17.+'
+    compile 'com.opentok.android:opentok-android-sdk:2.24.+'
 }
 

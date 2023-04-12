@@ -18,6 +18,7 @@ const ReconnectionListener = com.opentok.android.Session.ReconnectionListener;
 const ConnectionListener = com.opentok.android.Session.ConnectionListener;
 const ArchiveListener = com.opentok.android.Session.ArchiveListener;
 const MARSHMALLOW = 23;
+const ANDROID_12 = 31;
 const currentapiVersion = android.os.Build.VERSION.SDK_INT;
 import { TNSOTSubscriber } from "./subscriber";
 var permissions = require('nativescript-permissions');
@@ -193,10 +194,13 @@ export class TNSOTSession {
         return tnsSession;
     }
     public static requestPermission(): any {
-        if (currentapiVersion >= MARSHMALLOW) {
-            const perms = [android.Manifest.permission.CAMERA, android.Manifest.permission.RECORD_AUDIO];
-            return permissions.requestPermission(perms);
+        let perms;
+        if (currentapiVersion >= MARSHMALLOW && currentapiVersion >= ANDROID_12) {
+            perms = [android.Manifest.permission.CAMERA, android.Manifest.permission.RECORD_AUDIO , android.Manifest.permission.READ_PHONE_STATE];
+        }else if(currentapiVersion >= MARSHMALLOW ){
+            perms = [android.Manifest.permission.CAMERA, android.Manifest.permission.RECORD_AUDIO];
         }
+        return permissions.requestPermission(perms);
     }
 
     /**
